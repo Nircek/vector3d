@@ -1,13 +1,15 @@
 var canvas, ctx;
-var xf=2*Math.PI, yf=2*Math.PI; // XY Facing
+var ax=(1+25/180)*Math.PI, ay=1/2*Math.PI, az=0;
+var jx=0.435889, jy=0.9, jz=1;
+var scale=10;
 var u=10; // Units
-function line(x1, y1, x2, y2, color='black') {
+var middle = {x:0, y:0};
+function line(p1, p2, color='black') {
     ctx.beginPath();
-    ctx.moveTo(x1, y1);
-    ctx.lineTo(x2, y2);
+    ctx.moveTo(p1.x, p1.y);
+    ctx.lineTo(p2.x, p2.y);
     ctx.strokeStyle = color;
     ctx.stroke();
-    console.log(x1,y1,x2,y2);
 }
 
 function start() {
@@ -17,17 +19,17 @@ function start() {
     draw();
 }
 
+function next(p, a, d) {
+    return {x: p.x+d*Math.sin(a), y: p.y+d*Math.cos(a)};
+}
+
 function draw() {
     canvas.width  = window.innerWidth;
     canvas.height = window.innerHeight;
     ctx.translate(canvas.width/2, canvas.height/2);
     ctx.scale(1,-1);
-    xf += 0.1;
-    xf %= 2*Math.PI;
-    function x(){line(0,0,10*u*Math.sin(xf), 10*u*0, '#FF0000');}
-    function y(){line(0,0,10*u*Math.cos(xf), 10*u*0, '#00FF00');}
-    function z(){line(0,0,10*u*0, 10*u*1, '#0000FF');}
-    if(xf<Math.PI){y();x();}else{x();y();}
-    z();
+    line(middle, next(middle, ax, jx*10*scale), '#FF0000');
+    line(middle, next(middle, ay, jy*10*scale), '#00FF00');
+    line(middle, next(middle, az, jz*10*scale), '#0000FF');
     setTimeout(draw, 200);
 }
