@@ -1,6 +1,7 @@
 var canvas, ctx;
-var A = {x:(1+25/180)*Math.PI, y:1/2*Math.PI, z:0};
-var J = {x:0.435889, y:0.9, z:1};
+var a = (25/180)*Math.PI;
+var A = {x:a+Math.PI, y:1/2*Math.PI, z:0};
+var J = {x:Math.sin(a), y:Math.cos(a), z:1};
 var C = {x: '#FF0000', y: '#00FF00', z: '#0000FF'};
 var scale = 10;
 var M = {x:0, y:0};
